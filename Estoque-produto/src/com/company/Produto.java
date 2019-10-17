@@ -4,12 +4,21 @@ public class Produto {
 
     private double preco;
     private int quantidadeMinima;
-    private int tamanho;
+    private int tamanho;            // 1 = pequeno, 2 = medio, 3 = grande
+    private int codigo;
 
-    public Produto(double preco, int quantidadeMinima, int tamanho) {
+    public Produto(double preco, int tamanho, int codigo) {
         this.preco = preco;
-        this.quantidadeMinima = quantidadeMinima;
         this.tamanho = tamanho;
+        this.codigo = codigo;
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public double getPreco() {
@@ -21,21 +30,19 @@ public class Produto {
     }
 
     public int getQuantidadeMinima() {
-        return quantidadeMinima;
+        if( tamanho == 1 ){
+            return 100;
+        }else if( tamanho == 2 ){
+            return 50;
+        }else if( tamanho == 3 ){
+            return 25;
+        }else{
+            return 0;
+        }
     }
 
     public void setQuantidadeMinima(int quantidadeMinima) {
-        switch (tamanho){
-            case 1:
-                this.quantidadeMinima = 50;
-                break;
-            case 2:
-                this.quantidadeMinima = 25;
-                break;
-            case 3:
-                this.quantidadeMinima = 10;
-                break;
-        }
+        this.quantidadeMinima = quantidadeMinima;
     }
 
     public int getTamanho() {
