@@ -4,9 +4,17 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Produto produto1 = new Produto(15, 3, 123);
+        Produto produto1 = new Produto();
+        Produto produto2 = new Produto();
 
-        System.out.println("Preço: R$ " + produto1.getPreco() + ", tamanho: " + produto1.getTamanho() + ", codigo: " + produto1.getCodigo() );
-        System.out.println(produto1.getQuantidadeMinima());
+        produto1.setCodigo(123);
+        produto2.setCodigo(345);
+
+        Estoque lista = new Estoque();
+
+        lista.adiciona(produto1);
+        lista.adiciona(produto2);
+
+        System.out.println(lista);
     }
 }

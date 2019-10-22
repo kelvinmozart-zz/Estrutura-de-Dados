@@ -6,13 +6,13 @@ public class Produto {
     private int quantidadeMinima;
     private int tamanho;            // 1 = pequeno, 2 = medio, 3 = grande
     private int codigo;
-
+    /*
     public Produto(double preco, int tamanho, int codigo) {
         this.preco = preco;
         this.tamanho = tamanho;
         this.codigo = codigo;
     }
-
+    */
     public int getCodigo() {
         return codigo;
     }
@@ -20,7 +20,7 @@ public class Produto {
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
-
+/*
     public double getPreco() {
         return preco;
     }
@@ -51,5 +51,5 @@ public class Produto {
 
     public void setTamanho(int tamanho) {
         this.tamanho = tamanho;
-    }
+    }*/
 }
