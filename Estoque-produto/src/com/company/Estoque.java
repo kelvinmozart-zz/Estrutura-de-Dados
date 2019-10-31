@@ -8,10 +8,12 @@ public class Estoque {
     private int quantidade = 0;
 
     public void adiciona(Produto produto){
+        this.garantaEspaco();
         this.produtos[this.quantidade] = produto;
         this.quantidade++;
     }
     public void adiciona(int posicao, Produto produto){
+        this.garantaEspaco();
         if( !this.posicaoValida(posicao) ){
             throw new IllegalArgumentException("Posição innválida");
         }
@@ -20,6 +22,15 @@ public class Estoque {
         }
         this.produtos[posicao] = produto;
         this.quantidade++;
+    }
+    private void garantaEspaco(){
+        if( this.quantidade == this.produtos.length ){
+            Produto[] novaArray = new Produto[this.produtos.length*2];
+            for(int i=0; i<this.produtos.length; i++){
+                novaArray[i] = this.produtos[i];
+            }
+            this.produtos = novaArray;
+        }
     }
     public void removeProdutoNa(int posicao){
         if( !this.posicaoOcupada(posicao) ){
