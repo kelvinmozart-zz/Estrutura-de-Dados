@@ -1,7 +1,5 @@
 package com.company;
 
-import java.util.Arrays;
-
 public class Estoque {
 
     private Produto[] produtos = new Produto[100];
