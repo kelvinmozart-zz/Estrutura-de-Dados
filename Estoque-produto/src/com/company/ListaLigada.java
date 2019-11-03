@@ -12,6 +12,7 @@ public class ListaLigada {
         }else{
             Celula nova = new Celula(elemento);
             this.ultima.setProxima(nova);
+            nova.setAnterior(this.ultima);
             this.ultima = nova;
             this.totalDeElementos++;
         }
@@ -23,8 +24,11 @@ public class ListaLigada {
             this.adiciona(elemento);
         }else{
             Celula anterior = this.pegaCelula(posicao-1);
+            Celula proxima = anterior.getProxima();
             Celula nova = new Celula(anterior.getProxima(), elemento);
+            nova.setAnterior(anterior);
             anterior.setProxima(nova);
+            proxima.setAnterior(nova);
             this.totalDeElementos++;
         }
     }
@@ -32,7 +36,7 @@ public class ListaLigada {
         return this.pegaCelula(posicao).getElemento();
     }
     public void remove(int posicao){
-        if( !this.posicaoOcupada(posicao) ) {
+        if( !this.posicaoOcupada(posicao) ){
             throw new IllegalArgumentException("Posição não existe");
         }
         if( posicao == 0 ){
@@ -72,17 +76,27 @@ public class ListaLigada {
         }
     }
     public int tamanho(){
-        return 0;
+        return this.totalDeElementos;
     }
-    public boolean contem(Object o){
+    public boolean contem(Object elemento){
+        Celula atual = this.primeira;
+        while( atual != null ){
+            if( atual.getElemento().equals(elemento) ){
+                return true;
+            }
+            atual = atual.getProxima();
+        }
         return false;
     }
     public void adicionaNoComeco(Object elemento){
-        Celula nova = new Celula(this.primeira, elemento);
-        this.primeira = nova;
-
         if( this.totalDeElementos == 0 ){
-            this.ultima = this.primeira;
+            Celula nova = new Celula(elemento);
+            this.primeira = nova;
+            this.ultima = nova;
+        }else{
+            Celula nova = new Celula(this.primeira, elemento);
+            this.primeira.setAnterior(nova);
+            this.primeira = nova;
         }
         this.totalDeElementos++;
     }
@@ -100,7 +114,15 @@ public class ListaLigada {
         return atual;
     }
     public void removeDoComeco(){
+        if ( !this.posicaoOcupada(0) ){
+            throw new IllegalArgumentException("Posição não existe");
+        }
+        this.primeira = this.primeira.getProxima();
+        this.totalDeElementos--;
 
+        if ( this.totalDeElementos == 0 ){
+            this.ultima = null;
+        }
     }
     public String toString(){
         if( this.totalDeElementos == 0 ){
@@ -109,7 +131,7 @@ public class ListaLigada {
         StringBuilder builder = new StringBuilder("[");
         Celula atual = primeira;
 
-        for(int i=0; i<this.quantidade-1; i+_){
+        for(int i=0; i<this.totalDeElementos-1; i++){
             builder.append(atual.getElemento());
             builder.append(", ");
             atual = atual.getProxima();
